@@ -3,7 +3,6 @@ sda=1
 scl=2
 CODEBUG=0x18
 SET=3
-LED_LINE=1
 
 i2c.setup(id,sda,scl,i2c.SLOW)
 
