@@ -38,17 +38,16 @@ function codebug_get_row(line)
 	c=i2c.read(id,1)
 	i2c.stop(id)
 
-	return (tonumber(c))
+	return (tonumber(string.byte(c))
 end
 
 function codebug_set_pixel(x,y,value)
 	oldrowdata = codebug_get_row(y)
+	
 	newrowdata = bit.lshift(1,(4-x)) 
-	codebug_set_row(y,bit.bor(0, newrowdata))
+	codebug_set_row(y,bit.bor(oldrowdata, newrowdata))
 end
 
---codebug_set_row_binary(4,11011)
---print (string.byte(codebug_get_row(4)))
 
 codebug_clear()
 
@@ -57,6 +56,5 @@ for x=0,4 do
 	for y = 0,4 do 
 		codebug_set_pixel(x,y,1)
 		tmr.delay(100000)
-		codebug_clear()
 	end
 end
