@@ -7,17 +7,26 @@ GET=1
 
 i2c.setup(id,sda,scl,i2c.SLOW)
 
+function codebug_clear ()
+	for i=0,4 do
+		codebug_set_row(i,0)
+	end	
+end
+
 function codebug_set_row(line, value)
 	i2c.start(id)
 	i2c.address(id,CODEBUG,i2c.TRANSMITTER)
 	i2c.write(id,SET)
 	i2c.write(id,line)
-	i2c.write(id,tonumber(value,2))
+	i2c.write(id,value)
 	i2c.stop(id)
 end
 
-function codebug_get_row(line)
+function codebug_set_row_binary(line, value)
+	codebug_set_row(line,tonumber(value,2))
+end
 
+function codebug_get_row(line)
 	i2c.start(id)
 	i2c.address(id,CODEBUG,i2c.TRANSMITTER)
 	i2c.write(id,GET)
@@ -29,15 +38,22 @@ function codebug_get_row(line)
 	c=i2c.read(id,1)
 	i2c.stop(id)
 
-	print(string.byte(c))
+	return (c)
 end
 
-function codebug_clear ()
-	for i=0,4 do
-		codebug_set_row(i,0)
-	end
-	
+function codebug_set_pixel(x,y,value)
+	oldrowdata = codebug_get_row(y)
+	newrowdata = bit.lshift(1,(4-x)) 
+	codebug_set_row(bit.bor(oldrowdata, newrowdata))
 end
 
+codebug_set_row_binary(4,11011)
+print (string.byte(codebug_get_row(4)))
 
 codebug_clear()
+
+for x=0,4 do
+	for y = 0,4 do 
+		codebug_set_pixel(x,y,1)
+	end
+end
