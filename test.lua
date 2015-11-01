@@ -11,4 +11,4 @@ i2c.address(id,CODEBUG,i2c.TRANSMITTER)
 i2c.write(id,SET)
 i2c.write(id,LED_LINE)
 i2c.write(id,15)
-i2c.stop
+-- 15 = 01111 in binary - lighting up those 4 LEDS
