@@ -38,7 +38,7 @@ function codebug_get_row(line)
 	c=i2c.read(id,1)
 	i2c.stop(id)
 
-	return (tonumber(string.byte(c))
+	return (tonumber(string.byte(c)))
 end
 
 function codebug_set_pixel(x,y,value)
