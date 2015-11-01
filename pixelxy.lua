@@ -43,9 +43,15 @@ end
 
 function codebug_set_pixel(x,y,value)
 	oldrowdata = codebug_get_row(y)
-	
-	newrowdata = bit.lshift(1,(4-x)) 
-	codebug_set_row(y,bit.bor(oldrowdata, newrowdata))
+	newrowdata = bit.lshift(1,(4-x))
+
+ 	if (value == 1) then
+		mergedata = bit.bor(oldrowdata, newrowdata)
+	else
+		newrowdata = bit.bxor(255,newrowdata) 
+		mergedata = bit.band(oldrowdata, newrowdata)
+	end
+	codebug_set_row(y,mergedata)
 end
 
 
@@ -55,6 +61,13 @@ codebug_clear()
 for x=0,4 do
 	for y = 0,4 do 
 		codebug_set_pixel(x,y,1)
-		tmr.delay(100000)
+		tmr.delay(50000)
+	end
+end
+
+for x=0,4 do
+	for y = 0,4 do 
+		codebug_set_pixel(x,y,0)
+		tmr.delay(50000)
 	end
 end
