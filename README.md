@@ -4,7 +4,7 @@ Control codebug from ESP8266 / nodeMCU over I2C
 ![Imgur](http://i.imgur.com/XJjNaiwm.jpg)
 
 
-  arrow.lua 	   - display an arrow on codebug (raw without any functions) 
+        arrow.lua      - display an arrow on codebug (raw without any functions) 
   
 	codebug.lua    - library of codebug functions
 	
