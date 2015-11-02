@@ -62,7 +62,7 @@ function codebug_display_char(char)
 end
 
 function codebug_scroll_string(message,delay)
-  for x = 1, string.len(message)	do
+  for x = 1, string.len(message)-1 do
   	for scroll=1,8 do
 		for i=1,5 do
 			char1 = font[string.sub(message,x,x)][i] --
@@ -75,7 +75,7 @@ function codebug_scroll_string(message,delay)
 			row = bit.band(row,31)
 			codebug_set_row(i-1,row)
 		end
-		tmr.delay(delay)
+		tmr.delay(delay) -- timer crashy?
   	end
   end
 end
