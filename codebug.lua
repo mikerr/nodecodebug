@@ -75,7 +75,13 @@ function codebug_scroll_string(message,delay)
 			row = bit.band(row,31)
 			codebug_set_row(i-1,row)
 		end
-		tmr.delay(delay) -- timer crashy?
+		-- long delays cause crashes so reset watchdog
+		delayend = tmr.now() + delay
+		while (tmr.now() < delayend) do
+			tmr.delay(1000)
+			tmr.wdclr()
+		end
+
   	end
   end
 end
