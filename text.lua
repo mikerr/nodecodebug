@@ -76,7 +76,7 @@ for i, v in pairs(font) do
 end
 
 -- count 1 to 9
-for i=0 to 9 do
+for i=0,9 do
       codebug_display_char(tostring(i))
 	 tmr.delay(1000000)
 end
